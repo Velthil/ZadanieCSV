@@ -13,7 +13,7 @@ namespace ZadanieCSV.Models
         public DbSet<document> documents { get; set; }
         public DbSet<item> items { get; set; }
 
-        public string path = Path.Combine(Directory.GetCurrentDirectory(), "\\data.db");
+        public string path = "data.db";
 
         protected override void OnConfiguring(DbContextOptionsBuilder options) => options.UseSqlite($"Data Source={path}");
     }
