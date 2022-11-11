@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,9 +35,42 @@ namespace ZadanieCSV
             documents = new ObservableCollection<document>(DocumentsData.GetDocuments());
         }
 
-        private void GetDataButton_Click(object sender, RoutedEventArgs e)
+        private void ReadDocuments_Click(object sender, RoutedEventArgs e)
         {
+            var dialog = new OpenFileDialog();
 
+            dialog.FileName = "Documents";
+            dialog.DefaultExt = ".csv";
+            dialog.Filter = "Comma-separated values|*.csv";
+            dialog.Multiselect = false;
+
+            if (dialog.ShowDialog() != true)
+            {
+                return;
+            }
+
+            using (StreamReader reader = new StreamReader(dialog.FileName))
+            {
+                reader.ReadLine();
+                while(!reader.EndOfStream)
+                {
+                    string[] line = reader.ReadLine().Split(',', ';');
+                    if(line.Length == 6)
+                    {
+                        document doc = new document()
+                        {
+                            Id = int.Parse(line[0]),
+                            Type = line[1],
+                            Date = DateTime.Parse(line[2]),
+                            FirstName = line[3],
+                            LastName = line[4],
+                            City = line[5]
+                        };
+                        DocumentsData.AddDocumentToDb(doc);
+
+                    }
+                }
+            }
         }
     }
 }

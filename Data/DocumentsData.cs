@@ -9,11 +9,6 @@ namespace ZadanieCSV.Data
 {
     public static class DocumentsData
     {
-        public static List<document> ReadDocumentFromCsv()
-        {
-            List<document> doc = null;
-            return doc;
-        }
         public static void AddDocumentToDb(document doc)
         {
             using(var db = new dataContext())
@@ -37,6 +32,14 @@ namespace ZadanieCSV.Data
             using (var db = new dataContext())
             {
                 return db.documents.OrderBy(d => d.Id).ToList();
+            }
+        }
+
+        public static List<item> GetItems(int docId)
+        {
+            using (var db = new dataContext())
+            {
+                return db.items.Where(i => i.DocumentId == docId).ToList();
             }
         }
     }
