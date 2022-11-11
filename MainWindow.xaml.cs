@@ -26,6 +26,7 @@ namespace ZadanieCSV
     public partial class MainWindow : Window
     {
         public ObservableCollection<document> documents { get; set; }
+        public ObservableCollection<item> items { get; set; }
 
         public MainWindow()
         {
@@ -33,6 +34,7 @@ namespace ZadanieCSV
             DataContext = this;
 
             documents = new ObservableCollection<document>(DocumentsData.GetDocuments());
+            items = new ObservableCollection<item>(DocumentsData.GetItems(0));
         }
 
         private void ReadDocuments_Click(object sender, RoutedEventArgs e)
@@ -67,10 +69,59 @@ namespace ZadanieCSV
                             City = line[5]
                         };
                         DocumentsData.AddDocumentToDb(doc);
-
+                        documents.Add(doc);
                     }
                 }
             }
+        }
+
+        private void ReadDocumentItems_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+
+            dialog.FileName = "DocumentItems";
+            dialog.DefaultExt = ".csv";
+            dialog.Filter = "Comma-separated values|*.csv";
+            dialog.Multiselect = false;
+
+            if (dialog.ShowDialog() != true)
+            {
+                return;
+            }
+
+            using (StreamReader reader = new StreamReader(dialog.FileName))
+            {
+                reader.ReadLine();
+                while (!reader.EndOfStream)
+                {
+                    string[] line = reader.ReadLine().Split(';');
+                    if (line.Length == 6)
+                    {
+                        item it = new item()
+                        {
+                            DocumentId = int.Parse(line[0]),
+                            Ordinal = int.Parse(line[1]),
+                            Product = line[2],
+                            Quantity = int.Parse(line[3]),
+                            Price = decimal.Parse(line[4]),
+                            TaxRate = int.Parse(line[5])
+                        };
+                        DocumentsData.AddItemToDb(it);
+                    }
+                }
+            }
+        }
+
+        private void Documents_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            items.Clear();
+            foreach (var Data in DocumentsData.GetItems(Documents.SelectedIndex + 1))
+            {
+                items.Add(Data);
+            }
+
+            ItemsLabel.Visibility = Visibility.Visible;
+            Items.Visibility = Visibility.Visible;
         }
     }
 }

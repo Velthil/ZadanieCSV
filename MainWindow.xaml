@@ -15,8 +15,8 @@
 
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="170"/>
-                <ColumnDefinition Width="170"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -27,6 +27,12 @@
                     Grid.Column="0" 
                     Margin="10"
                     Click="ReadDocuments_Click">
+            </Button>
+
+            <Button Content="Read DocumentItems.csv file" 
+                    Grid.Column="1" 
+                    Margin="10"
+                    Click="ReadDocumentItems_Click">
             </Button>
 
         </Grid>
@@ -44,17 +50,18 @@
             <TextBlock Grid.Column="0" VerticalAlignment="Center" Margin="10" FontSize="18">
                 <Bold>Documents :</Bold>
             </TextBlock>
-            <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="10" FontSize="18">
+            <TextBlock Name="ItemsLabel" Grid.Column="1" VerticalAlignment="Center" Margin="10" FontSize="18" Visibility="Hidden">
                 <Bold>Items :</Bold>
             </TextBlock>
 
             <DataGrid Name="Documents"
+                      SelectedCellsChanged="Documents_SelectedCellsChanged"
                       Grid.Row="1"
                       Grid.Column="0"
                       AutoGenerateColumns="False"
                       ItemsSource="{Binding documents}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="*" />
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="2*" />
                     <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="3*" />
                     <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat=\{0:dd.MM.yy\}}" Width="3*" />
                     <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" Width="4*" />
@@ -66,10 +73,16 @@
             <DataGrid Name="Items"
                       Grid.Row="1"
                       Grid.Column="1"
+                      Visibility="Hidden"
                       AutoGenerateColumns="False"
-                      ItemsSource="{Binding documents}">
+                      ItemsSource="{Binding items}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="10" />
+                    <DataGridTextColumn Header="Doc Id" Binding="{Binding DocumentId}" Width="2*" />
+                    <DataGridTextColumn Header="Ordinal" Binding="{Binding Ordinal}" Width="2*" />
+                    <DataGridTextColumn Header="Product" Binding="{Binding Product}" Width="3*" />
+                    <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="3*" />
+                    <DataGridTextColumn Header="Price" Binding="{Binding Price}" Width="3*" />
+                    <DataGridTextColumn Header="Tax Rate" Binding="{Binding TaxRate}" Width="2*" />
                 </DataGrid.Columns>
             </DataGrid>
 
