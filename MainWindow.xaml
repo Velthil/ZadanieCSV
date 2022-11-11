@@ -58,6 +58,7 @@
                       SelectedCellsChanged="Documents_SelectedCellsChanged"
                       Grid.Row="1"
                       Grid.Column="0"
+                      IsReadOnly="True"
                       AutoGenerateColumns="False"
                       ItemsSource="{Binding documents}">
                 <DataGrid.Columns>
@@ -74,6 +75,7 @@
                       Grid.Row="1"
                       Grid.Column="1"
                       Visibility="Hidden"
+                      IsReadOnly="True"
                       AutoGenerateColumns="False"
                       ItemsSource="{Binding items}">
                 <DataGrid.Columns>
