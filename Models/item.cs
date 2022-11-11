@@ -9,6 +9,7 @@ namespace ZadanieCSV.Models
     public class item
     {
         public int Id { get; set; }
+
         public int DocumentId { get; set; }
 
         public int Ordinal { get; set; }
