@@ -10,6 +10,11 @@ namespace ZadanieCSV.Models
 {
     public class dataContext : DbContext
     {
+        public dataContext()
+        {
+            Database.EnsureCreated();
+        }
+
         public DbSet<document> documents { get; set; }
         public DbSet<item> items { get; set; }
 

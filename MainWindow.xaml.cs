@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ZadanieCSV.Data;
+using ZadanieCSV.Models;
 
 namespace ZadanieCSV
 {
@@ -20,9 +23,19 @@ namespace ZadanieCSV
     /// </summary>
     public partial class MainWindow : Window
     {
+        public ObservableCollection<document> documents { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = this;
+
+            documents = new ObservableCollection<document>(DocumentsData.GetDocuments());
+        }
+
+        private void GetDataButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

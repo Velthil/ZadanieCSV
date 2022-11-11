@@ -7,6 +7,55 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Button Content="Get data from CSV" 
+                    Grid.Column="0" 
+                    Margin="10"
+                    Click="GetDataButton_Click">
+            </Button>
+
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <DataGrid Name="Documents"
+                      Grid.Row="1"
+                      AutoGenerateColumns="False"
+                      ItemsSource="{Binding documents}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="10" />
+                    <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="*" />
+                    <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="2*" />
+                    <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" Width="3*" />
+                    <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" Width="3*" />
+                    <DataGridTextColumn Header="City" Binding="{Binding City}" Width="2*" />
+                </DataGrid.Columns>
+                
+            </DataGrid>
+        </Grid>
 
     </Grid>
 </Window>
